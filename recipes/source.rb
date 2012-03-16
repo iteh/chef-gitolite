@@ -36,28 +36,38 @@ bash 'install_gitolite' do
     creates '/usr/local/bin/gl-setup'
 end
 
+group node[:gitolite][:groupname] do 
+end
+
 # Create the user
 user node[:gitolite][:username] do
     comment "#{node[:gitolite][:username]} gitolite user"
     home "/home/#{node[:gitolite][:username]}"
+    gid node[:gitolite][:groupname]
     shell "/bin/bash"
     # FIXME Use supports :create_home ?
     action :create
-end
+end  
+
+
+
 # And its folder
 directory "/home/#{node[:gitolite][:username]}" do
-    owner node[:gitolite][:username]
+    owner node[:gitolite][:username]  
+    group node[:gitolite][:groupname]
     action :create
 end
 
 # The admin ssh public key
 file "/tmp/gitolite-#{node[:gitolite][:admin][:username]}.pub" do
-    owner node[:gitolite][:username]
+    owner node[:gitolite][:username]    
+    group node[:gitolite][:groupname]
     content node[:gitolite][:admin][:key]
 end
 # gitolite_rc ?
 template "/home/#{node[:gitolite][:username]}/.gitolite.rc" do
     owner node[:gitolite][:username]
+    group node[:gitolite][:groupname]
     source "gitolite.rc.erb"
     action :create
 end

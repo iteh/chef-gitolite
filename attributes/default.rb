@@ -22,7 +22,9 @@
 # Use the backport package (debian-only)
 default[:gitolite][:use_backport] = false
 # "git" as default gitolite user
-default[:gitolite][:username] = "git"
+default[:gitolite][:username] = "git"    
+default[:gitolite][:groupname] = "git"    
+
 default[:gitolite][:admin][:username] = "admin"
 # Advanced gitolite configurations
 default[:gitolite][:wild_repos] = 1
