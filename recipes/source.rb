@@ -30,8 +30,7 @@ bash 'install_gitolite' do
         git clone git://github.com/sitaramc/gitolite gitolite
         cd gitolite
         git checkout -t -f origin/pu
-        mkdir -p /usr/local/share/gitolite/conf /usr/local/share/gitolite/hooks
-        src/gl-system-install /usr/local/bin /usr/local/share/gitolite/conf /usr/local/share/gitolite/hooks
+        src/gl-system-install
     EOF
     creates '/usr/local/bin/gl-setup'
 end
